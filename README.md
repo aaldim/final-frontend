@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ApiFinalBackend
 
-## Getting Started
+Este proyecto es una API desarrollada en **Spring Boot** que permite consultar el tipo de cambio del día desde un servicio SOAP del Banco de Guatemala y gestionar un historial de solicitudes.
 
-First, run the development server:
+## Características principales
+- Consulta del tipo de cambio del día a través de un servicio SOAP.
+- Almacenamiento del historial de solicitudes en una base de datos PostgreSQL.
+- Exposición de endpoints REST para consumir los datos.
 
+## Requisitos previos
+Antes de comenzar, asegúrate de tener instaladas las siguientes herramientas:
+
+1. **Java 17 o superior**
+   - Puedes instalarlo en macOS con Homebrew:
+     ```bash
+     brew install openjdk@17
+     ```
+   - Configura `JAVA_HOME`:
+     ```bash
+     export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+     export PATH=$JAVA_HOME/bin:$PATH
+     ```
+
+2. **Maven**
+   - Instálalo en macOS con Homebrew:
+     ```bash
+     brew install maven
+     ```
+
+3. **PostgreSQL**
+   - Asegúrate de que PostgreSQL esté instalado y ejecutándose.
+   - Crea una base de datos llamada `neondb` o configura otra en `application.properties`.
+
+4. **Git**
+   - Si no tienes Git instalado, puedes descargarlo desde [Git](https://git-scm.com/).
+
+## Pasos para configurar y ejecutar el proyecto
+
+### 1. Clonar el repositorio
+Clona este repositorio en tu máquina local:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone <URL_DEL_REPOSITORIO>
+cd ApiFinalBackend
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Configurar la base de datos
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Abre el archivo src/main/resources/application.properties y asegúrate de configurar las credenciales correctas para PostgreSQL:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+spring.datasource.url=jdbc:postgresql://<HOST>:<PUERTO>/<NOMBRE_BD>?sslmode=require
+spring.datasource.username=<USUARIO>
+spring.datasource.password=<CONTRASEÑA>
 
-## Learn More
+Ejemplo:
 
-To learn more about Next.js, take a look at the following resources:
+spring.datasource.url=jdbc:postgresql://localhost:5432/neondb
+spring.datasource.username=postgres
+spring.datasource.password=postgres
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Construir el proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Compila y construye el proyecto utilizando Maven:
 
-## Deploy on Vercel
+mvn clean install
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Ejecutar la aplicación
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ejecuta la aplicación con el siguiente comando:
+
+mvn spring-boot:run
+
+5. Acceso a los endpoints
+
+Una vez que el servidor esté en ejecución (por defecto en el puerto 8080), puedes acceder a los siguientes endpoints:
+
+Obtener el tipo de cambio del día
+
+GET http://localhost:8080/tipoCambioDia
+
+Obtener el historial de solicitudes
+
+GET http://localhost:8080/historial
+
+6. Probar la API
+
+Puedes probar los endpoints utilizando herramientas como Postman o cURL.
+
+Ejemplo con cURL:
+
+curl -X GET http://localhost:8080/tipoCambioDia -H "Accept: application/json"
+curl -X GET http://localhost:8080/historial -H "Accept: application/json"
