@@ -27,20 +27,20 @@ Este proyecto es una aplicación web desarrollada con **Next.js** y **Tailwind C
 
 Clona este repositorio desde GitHub:
 
-```bash
+
 git clone https://github.com/aaldim/final-frontend.git
 
 Dirígete al directorio del proyecto:
 
 cd nombre-del-repositorio
 
-2. Instalar Dependencias
+### **2. Instalar Dependencias**
 
 Instala todas las dependencias necesarias:
 
 npm install
 
-3. Ejecutar el Servidor de Desarrollo
+### **3. Ejecutar el Servidor de Desarrollo**
 
 Inicia el servidor en modo desarrollo:
 
@@ -48,7 +48,7 @@ npm run dev
 
 La aplicación estará disponible en: http://localhost:3000
 
-4. Funcionalidades Disponibles
+### **4. Funcionalidades Disponibles**
 
 Tipo de Cambio
 
